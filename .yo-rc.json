@@ -1,0 +1,32 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.uade.edu.ar"
+    },
+    "jhipsterVersion": "5.4.2",
+    "applicationType": "monolith",
+    "baseName": "fourbooks",
+    "packageName": "com.uade.edu.ar",
+    "packageFolder": "com/uade/edu/ar",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "enableHibernateCache": false,
+    "websocket": "spring-websocket",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "NmQ2NGZhMzM3NDlkMDhlZjliZTA3OGRiNmY2MGE3NGYwYjVmMGVmMWFkZGI2YTIzOWZjNzFkYzlkNzI5YjQ0ODlmNDAzMWFhMGZjM2RmNDY4MjJlYzZlN2I1ZTVmMjM1NzUwYTg5M2M3YzMxYTFlYjUyY2E2YmZkMDgyNTRlZTA=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": false
+  }
+}
