@@ -1,0 +1,17 @@
+entity Libro {
+	isbn String
+	titulo String
+	descripcion String
+	editorial String
+	edicion String
+}
+
+entity Autor {
+	nombre String
+	nacionalidad String
+	email String
+}
+
+relationship OneToMany {
+	Libro{autor(nombre)} to Autor{libros}
+}

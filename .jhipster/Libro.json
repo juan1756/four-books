@@ -1,0 +1,42 @@
+{
+    "name": "Libro",
+    "fields": [
+        {
+            "fieldName": "isbn",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "titulo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "editorial",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "edicion",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "autor",
+            "otherEntityName": "autor",
+            "otherEntityRelationshipName": "libros"
+        }
+    ],
+    "changelogDate": "20181016231523",
+    "entityTableName": "libro",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

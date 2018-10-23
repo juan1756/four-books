@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-libro-heading">Create or edit a Libro</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!libro.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="libro.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_isbn">Isbn</label>
+                    <input type="text" class="form-control" name="isbn" id="field_isbn"
+                        [(ngModel)]="libro.isbn" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_titulo">Titulo</label>
+                    <input type="text" class="form-control" name="titulo" id="field_titulo"
+                        [(ngModel)]="libro.titulo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_descripcion">Descripcion</label>
+                    <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                        [(ngModel)]="libro.descripcion" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_editorial">Editorial</label>
+                    <input type="text" class="form-control" name="editorial" id="field_editorial"
+                        [(ngModel)]="libro.editorial" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_edicion">Edicion</label>
+                    <input type="text" class="form-control" name="edicion" id="field_edicion"
+                        [(ngModel)]="libro.edicion" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
