@@ -20,6 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,6 +51,9 @@ public class AutorResourceIntTest {
 
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_BIRTH_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_BIRTH_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private AutorRepository autorRepository;
@@ -95,7 +100,8 @@ public class AutorResourceIntTest {
         Autor autor = new Autor()
             .nombre(DEFAULT_NOMBRE)
             .nacionalidad(DEFAULT_NACIONALIDAD)
-            .email(DEFAULT_EMAIL);
+            .email(DEFAULT_EMAIL)
+            .birthDate(DEFAULT_BIRTH_DATE);
         return autor;
     }
 
@@ -122,6 +128,7 @@ public class AutorResourceIntTest {
         assertThat(testAutor.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testAutor.getNacionalidad()).isEqualTo(DEFAULT_NACIONALIDAD);
         assertThat(testAutor.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testAutor.getBirthDate()).isEqualTo(DEFAULT_BIRTH_DATE);
 
         // Validate the Autor in Elasticsearch
         verify(mockAutorSearchRepository, times(1)).save(testAutor);
@@ -160,7 +167,8 @@ public class AutorResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(autor.getId())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
             .andExpect(jsonPath("$.[*].nacionalidad").value(hasItem(DEFAULT_NACIONALIDAD.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].birthDate").value(hasItem(DEFAULT_BIRTH_DATE.toString())));
     }
     
     @Test
@@ -175,7 +183,8 @@ public class AutorResourceIntTest {
             .andExpect(jsonPath("$.id").value(autor.getId()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
             .andExpect(jsonPath("$.nacionalidad").value(DEFAULT_NACIONALIDAD.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.birthDate").value(DEFAULT_BIRTH_DATE.toString()));
     }
 
     @Test
@@ -197,7 +206,8 @@ public class AutorResourceIntTest {
         updatedAutor
             .nombre(UPDATED_NOMBRE)
             .nacionalidad(UPDATED_NACIONALIDAD)
-            .email(UPDATED_EMAIL);
+            .email(UPDATED_EMAIL)
+            .birthDate(UPDATED_BIRTH_DATE);
 
         restAutorMockMvc.perform(put("/api/autors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -211,6 +221,7 @@ public class AutorResourceIntTest {
         assertThat(testAutor.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testAutor.getNacionalidad()).isEqualTo(UPDATED_NACIONALIDAD);
         assertThat(testAutor.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testAutor.getBirthDate()).isEqualTo(UPDATED_BIRTH_DATE);
 
         // Validate the Autor in Elasticsearch
         verify(mockAutorSearchRepository, times(1)).save(testAutor);
@@ -269,7 +280,8 @@ public class AutorResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(autor.getId())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
             .andExpect(jsonPath("$.[*].nacionalidad").value(hasItem(DEFAULT_NACIONALIDAD.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].birthDate").value(hasItem(DEFAULT_BIRTH_DATE.toString())));
     }
 
     @Test

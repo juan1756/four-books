@@ -33,7 +33,7 @@
             <th><span>Nombre</span></th>
             <th><span>Nacionalidad</span></th>
             <th><span>Email</span></th>
-            <th><span>Libros</span></th>
+            <th><span>Birth Date</span></th>
             <th></th>
             </tr>
             </thead>
@@ -43,11 +43,7 @@
                 <td>{{autor.nombre}}</td>
                 <td>{{autor.nacionalidad}}</td>
                 <td>{{autor.email}}</td>
-                <td>
-                    <div *ngIf="autor.libros">
-                        <a [routerLink]="['../libro', autor.libros?.id, 'view' ]" >{{autor.libros?.id}}</a>
-                    </div>
-                </td>
+                <td>{{autor.birthDate | date:'mediumDate'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -17,11 +17,9 @@
                 <dd>
                     <span>{{autor.email}}</span>
                 </dd>
-                <dt><span>Libros</span></dt>
+                <dt><span>Birth Date</span></dt>
                 <dd>
-                    <div *ngIf="autor.libros">
-                        <a [routerLink]="['/libro', autor.libros?.id, 'view']">{{autor.libros?.id}}</a>
-                    </div>
+                    <span>{{autor.birthDate}}</span>
                 </dd>
             </dl>
 

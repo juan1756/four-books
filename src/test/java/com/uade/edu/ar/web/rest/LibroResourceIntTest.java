@@ -47,14 +47,14 @@ public class LibroResourceIntTest {
     private static final String DEFAULT_TITULO = "AAAAAAAAAA";
     private static final String UPDATED_TITULO = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
-
     private static final String DEFAULT_EDITORIAL = "AAAAAAAAAA";
     private static final String UPDATED_EDITORIAL = "BBBBBBBBBB";
 
     private static final String DEFAULT_EDICION = "AAAAAAAAAA";
     private static final String UPDATED_EDICION = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_ACTIVO = false;
+    private static final Boolean UPDATED_ACTIVO = true;
 
     @Autowired
     private LibroRepository libroRepository;
@@ -101,9 +101,9 @@ public class LibroResourceIntTest {
         Libro libro = new Libro()
             .isbn(DEFAULT_ISBN)
             .titulo(DEFAULT_TITULO)
-            .descripcion(DEFAULT_DESCRIPCION)
             .editorial(DEFAULT_EDITORIAL)
-            .edicion(DEFAULT_EDICION);
+            .edicion(DEFAULT_EDICION)
+            .activo(DEFAULT_ACTIVO);
         return libro;
     }
 
@@ -129,9 +129,9 @@ public class LibroResourceIntTest {
         Libro testLibro = libroList.get(libroList.size() - 1);
         assertThat(testLibro.getIsbn()).isEqualTo(DEFAULT_ISBN);
         assertThat(testLibro.getTitulo()).isEqualTo(DEFAULT_TITULO);
-        assertThat(testLibro.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
         assertThat(testLibro.getEditorial()).isEqualTo(DEFAULT_EDITORIAL);
         assertThat(testLibro.getEdicion()).isEqualTo(DEFAULT_EDICION);
+        assertThat(testLibro.isActivo()).isEqualTo(DEFAULT_ACTIVO);
 
         // Validate the Libro in Elasticsearch
         verify(mockLibroSearchRepository, times(1)).save(testLibro);
@@ -170,9 +170,9 @@ public class LibroResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(libro.getId())))
             .andExpect(jsonPath("$.[*].isbn").value(hasItem(DEFAULT_ISBN.toString())))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO.toString())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
             .andExpect(jsonPath("$.[*].editorial").value(hasItem(DEFAULT_EDITORIAL.toString())))
-            .andExpect(jsonPath("$.[*].edicion").value(hasItem(DEFAULT_EDICION.toString())));
+            .andExpect(jsonPath("$.[*].edicion").value(hasItem(DEFAULT_EDICION.toString())))
+            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())));
     }
     
     @Test
@@ -187,9 +187,9 @@ public class LibroResourceIntTest {
             .andExpect(jsonPath("$.id").value(libro.getId()))
             .andExpect(jsonPath("$.isbn").value(DEFAULT_ISBN.toString()))
             .andExpect(jsonPath("$.titulo").value(DEFAULT_TITULO.toString()))
-            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
             .andExpect(jsonPath("$.editorial").value(DEFAULT_EDITORIAL.toString()))
-            .andExpect(jsonPath("$.edicion").value(DEFAULT_EDICION.toString()));
+            .andExpect(jsonPath("$.edicion").value(DEFAULT_EDICION.toString()))
+            .andExpect(jsonPath("$.activo").value(DEFAULT_ACTIVO.booleanValue()));
     }
 
     @Test
@@ -211,9 +211,9 @@ public class LibroResourceIntTest {
         updatedLibro
             .isbn(UPDATED_ISBN)
             .titulo(UPDATED_TITULO)
-            .descripcion(UPDATED_DESCRIPCION)
             .editorial(UPDATED_EDITORIAL)
-            .edicion(UPDATED_EDICION);
+            .edicion(UPDATED_EDICION)
+            .activo(UPDATED_ACTIVO);
 
         restLibroMockMvc.perform(put("/api/libros")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -226,9 +226,9 @@ public class LibroResourceIntTest {
         Libro testLibro = libroList.get(libroList.size() - 1);
         assertThat(testLibro.getIsbn()).isEqualTo(UPDATED_ISBN);
         assertThat(testLibro.getTitulo()).isEqualTo(UPDATED_TITULO);
-        assertThat(testLibro.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
         assertThat(testLibro.getEditorial()).isEqualTo(UPDATED_EDITORIAL);
         assertThat(testLibro.getEdicion()).isEqualTo(UPDATED_EDICION);
+        assertThat(testLibro.isActivo()).isEqualTo(UPDATED_ACTIVO);
 
         // Validate the Libro in Elasticsearch
         verify(mockLibroSearchRepository, times(1)).save(testLibro);
@@ -287,9 +287,9 @@ public class LibroResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(libro.getId())))
             .andExpect(jsonPath("$.[*].isbn").value(hasItem(DEFAULT_ISBN.toString())))
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO.toString())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
             .andExpect(jsonPath("$.[*].editorial").value(hasItem(DEFAULT_EDITORIAL.toString())))
-            .andExpect(jsonPath("$.[*].edicion").value(hasItem(DEFAULT_EDICION.toString())));
+            .andExpect(jsonPath("$.[*].edicion").value(hasItem(DEFAULT_EDICION.toString())))
+            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())));
     }
 
     @Test

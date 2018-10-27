@@ -1,13 +1,19 @@
-import { ILibro } from 'app/shared/model//libro.model';
+import { Moment } from 'moment';
 
 export interface IAutor {
     id?: string;
     nombre?: string;
     nacionalidad?: string;
     email?: string;
-    libros?: ILibro;
+    birthDate?: Moment;
 }
 
 export class Autor implements IAutor {
-    constructor(public id?: string, public nombre?: string, public nacionalidad?: string, public email?: string, public libros?: ILibro) {}
+    constructor(
+        public id?: string,
+        public nombre?: string,
+        public nacionalidad?: string,
+        public email?: string,
+        public birthDate?: Moment
+    ) {}
 }

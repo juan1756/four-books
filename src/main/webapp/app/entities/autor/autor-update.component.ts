@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import * as moment from 'moment';
 
 import { IAutor } from 'app/shared/model/autor.model';
 import { AutorService } from './autor.service';
-import { ILibro } from 'app/shared/model/libro.model';
-import { LibroService } from 'app/entities/libro';
 
 @Component({
     selector: 'jhi-autor-update',
@@ -16,27 +14,15 @@ import { LibroService } from 'app/entities/libro';
 export class AutorUpdateComponent implements OnInit {
     autor: IAutor;
     isSaving: boolean;
+    birthDateDp: any;
 
-    libros: ILibro[];
-
-    constructor(
-        private jhiAlertService: JhiAlertService,
-        private autorService: AutorService,
-        private libroService: LibroService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+    constructor(private autorService: AutorService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ autor }) => {
             this.autor = autor;
         });
-        this.libroService.query().subscribe(
-            (res: HttpResponse<ILibro[]>) => {
-                this.libros = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -63,13 +49,5 @@ export class AutorUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    trackLibroById(index: number, item: ILibro) {
-        return item.id;
     }
 }

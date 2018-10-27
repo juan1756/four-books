@@ -12,16 +12,13 @@
         {
             "fieldName": "email",
             "fieldType": "String"
-        }
-    ],
-    "relationships": [
+        },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "libros",
-            "otherEntityName": "libro",
-            "otherEntityField": "id"
+            "fieldName": "birthDate",
+            "fieldType": "LocalDate"
         }
     ],
+    "relationships": [],
     "changelogDate": "20181016231524",
     "entityTableName": "autor",
     "dto": "no",

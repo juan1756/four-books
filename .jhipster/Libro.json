@@ -10,26 +10,19 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "descripcion",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "editorial",
             "fieldType": "String"
         },
         {
             "fieldName": "edicion",
             "fieldType": "String"
-        }
-    ],
-    "relationships": [
+        },
         {
-            "relationshipType": "one-to-many",
-            "relationshipName": "autor",
-            "otherEntityName": "autor",
-            "otherEntityRelationshipName": "libros"
+            "fieldName": "activo",
+            "fieldType": "Boolean"
         }
     ],
+    "relationships": [],
     "changelogDate": "20181016231523",
     "entityTableName": "libro",
     "dto": "no",

@@ -1,12 +1,12 @@
 package com.uade.edu.ar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -30,10 +30,8 @@ public class Autor implements Serializable {
     @Field("email")
     private String email;
 
-    @DBRef
-    @Field("libros")
-    @JsonIgnoreProperties("autors")
-    private Libro libros;
+    @Field("birth_date")
+    private LocalDate birthDate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -83,17 +81,17 @@ public class Autor implements Serializable {
         this.email = email;
     }
 
-    public Libro getLibros() {
-        return libros;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public Autor libros(Libro libro) {
-        this.libros = libro;
+    public Autor birthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
         return this;
     }
 
-    public void setLibros(Libro libro) {
-        this.libros = libro;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -124,6 +122,7 @@ public class Autor implements Serializable {
             ", nombre='" + getNombre() + "'" +
             ", nacionalidad='" + getNacionalidad() + "'" +
             ", email='" + getEmail() + "'" +
+            ", birthDate='" + getBirthDate() + "'" +
             "}";
     }
 }

@@ -1,14 +1,11 @@
 package com.uade.edu.ar.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -29,18 +26,15 @@ public class Libro implements Serializable {
     @Field("titulo")
     private String titulo;
 
-    @Field("descripcion")
-    private String descripcion;
-
     @Field("editorial")
     private String editorial;
 
     @Field("edicion")
     private String edicion;
 
-    @DBRef
-    @Field("autor")
-    private Set<Autor> autors = new HashSet<>();
+    @Field("activo")
+    private Boolean activo;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -76,19 +70,6 @@ public class Libro implements Serializable {
         this.titulo = titulo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public Libro descripcion(String descripcion) {
-        this.descripcion = descripcion;
-        return this;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public String getEditorial() {
         return editorial;
     }
@@ -115,29 +96,17 @@ public class Libro implements Serializable {
         this.edicion = edicion;
     }
 
-    public Set<Autor> getAutors() {
-        return autors;
+    public Boolean isActivo() {
+        return activo;
     }
 
-    public Libro autors(Set<Autor> autors) {
-        this.autors = autors;
+    public Libro activo(Boolean activo) {
+        this.activo = activo;
         return this;
     }
 
-    public Libro addAutor(Autor autor) {
-        this.autors.add(autor);
-        autor.setLibros(this);
-        return this;
-    }
-
-    public Libro removeAutor(Autor autor) {
-        this.autors.remove(autor);
-        autor.setLibros(null);
-        return this;
-    }
-
-    public void setAutors(Set<Autor> autors) {
-        this.autors = autors;
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -167,9 +136,9 @@ public class Libro implements Serializable {
             "id=" + getId() +
             ", isbn='" + getIsbn() + "'" +
             ", titulo='" + getTitulo() + "'" +
-            ", descripcion='" + getDescripcion() + "'" +
             ", editorial='" + getEditorial() + "'" +
             ", edicion='" + getEdicion() + "'" +
+            ", activo='" + isActivo() + "'" +
             "}";
     }
 }

@@ -1,17 +1,14 @@
-entity Libro {
+	entity Libro {
 	isbn String
 	titulo String
-	descripcion String
 	editorial String
 	edicion String
+	activo Boolean
 }
 
 entity Autor {
 	nombre String
 	nacionalidad String
 	email String
-}
-
-relationship OneToMany {
-	Libro{autor(nombre)} to Autor{libros}
+	birthDate LocalDate
 }
