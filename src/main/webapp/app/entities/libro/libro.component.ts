@@ -3,6 +3,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { Observable } from 'rxjs';
 
 import { ILibro } from 'app/shared/model/libro.model';
 import { Principal } from 'app/core';
@@ -87,5 +88,25 @@ export class LibroComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    recommend(idLibro: string) {
+        this.subscribeToSaveResponse(this.libroService.recommend(this.libros.find(x => x.id === idLibro)));
+    }
+
+    unRecommend(idLibro: string) {
+        this.subscribeToSaveResponse(this.libroService.unRecommend(idLibro));
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ILibro>>) {
+        result.subscribe((res: HttpResponse<ILibro>) => this.onRecommendSuccess(), this.onRecommendError);
+    }
+
+    onRecommendSuccess() {
+        this.loadAll();
+    }
+
+    onRecommendError(res: HttpErrorResponse) {
+        console.log(res);
     }
 }

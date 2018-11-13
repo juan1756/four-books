@@ -34,6 +34,8 @@ public class Libro implements Serializable {
 
     @Field("activo")
     private Boolean activo;
+    
+    private String recomendado;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -108,9 +110,19 @@ public class Libro implements Serializable {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
+    
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public String getRecomendado() {
+		return recomendado;
+	}
+
+	public void setRecomendado(String recomendado) {
+		this.recomendado = recomendado;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

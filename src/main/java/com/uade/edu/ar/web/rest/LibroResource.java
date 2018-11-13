@@ -2,7 +2,9 @@ package com.uade.edu.ar.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.uade.edu.ar.domain.Libro;
+import com.uade.edu.ar.domain.Recomendacion;
 import com.uade.edu.ar.repository.LibroRepository;
+import com.uade.edu.ar.repository.RecomendacionRepository;
 import com.uade.edu.ar.repository.search.LibroSearchRepository;
 import com.uade.edu.ar.web.rest.errors.BadRequestAlertException;
 import com.uade.edu.ar.web.rest.util.HeaderUtil;
@@ -10,6 +12,8 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -18,6 +22,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -36,9 +41,12 @@ public class LibroResource {
     private final LibroRepository libroRepository;
 
     private final LibroSearchRepository libroSearchRepository;
+    
+    private final RecomendacionRepository recomendacionRepository;
 
-    public LibroResource(LibroRepository libroRepository, LibroSearchRepository libroSearchRepository) {
+    public LibroResource(RecomendacionRepository recomendacionRepository, LibroRepository libroRepository, LibroSearchRepository libroSearchRepository) {
         this.libroRepository = libroRepository;
+        this.recomendacionRepository = recomendacionRepository;
         this.libroSearchRepository = libroSearchRepository;
     }
 
@@ -95,7 +103,21 @@ public class LibroResource {
     @Timed
     public List<Libro> getAllLibros() {
         log.debug("REST request to get all Libros");
-        return libroRepository.findAll();
+        
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        List<Recomendacion> recomendaciones = recomendacionRepository.findAllByUser(user.getUsername());
+        List<Libro> libros = libroRepository.findAll();
+        recomendaciones.forEach(r -> {
+        	libros.stream().filter(libro -> {
+        		return libro.getIsbn().equals(r.getIsbn());
+        	}).findFirst().map(f -> {
+        		f.setRecomendado(r.getId());
+        		return f;
+        	});
+        });
+        
+        return libros;
     }
 
     /**

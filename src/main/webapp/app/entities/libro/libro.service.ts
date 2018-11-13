@@ -24,6 +24,14 @@ export class LibroService {
         return this.http.put<ILibro>(this.resourceUrl, libro, { observe: 'response' });
     }
 
+    recommend(libro: ILibro): Observable<EntityResponseType> {
+        return this.http.post<ILibro>(SERVER_API_URL + 'api/recomendacions', libro, { observe: 'response' });
+    }
+
+    unRecommend(idlibro: String): Observable<EntityResponseType> {
+        return this.http.delete<any>(SERVER_API_URL + 'api/recomendacions/' + idlibro, { observe: 'response' });
+    }
+
     find(id: string): Observable<EntityResponseType> {
         return this.http.get<ILibro>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

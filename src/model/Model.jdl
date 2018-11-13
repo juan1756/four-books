@@ -1,4 +1,4 @@
-	entity Libro {
+entity Libro {
 	isbn String
 	titulo String
 	editorial String
@@ -11,4 +11,9 @@ entity Autor {
 	nacionalidad String
 	email String
 	birthDate LocalDate
+}
+
+entity Recomendacion {
+	user String
+	isbn String
 }
