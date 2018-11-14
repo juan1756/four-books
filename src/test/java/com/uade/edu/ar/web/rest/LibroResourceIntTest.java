@@ -4,6 +4,7 @@ import com.uade.edu.ar.FourbooksApp;
 
 import com.uade.edu.ar.domain.Libro;
 import com.uade.edu.ar.repository.LibroRepository;
+import com.uade.edu.ar.repository.RecomendacionRepository;
 import com.uade.edu.ar.repository.search.LibroSearchRepository;
 import com.uade.edu.ar.web.rest.errors.ExceptionTranslator;
 
@@ -58,6 +59,9 @@ public class LibroResourceIntTest {
 
     @Autowired
     private LibroRepository libroRepository;
+    
+    @Autowired
+    private RecomendacionRepository recomendacionRepository;
 
     /**
      * This repository is mocked in the com.uade.edu.ar.repository.search test package.
@@ -83,7 +87,7 @@ public class LibroResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LibroResource libroResource = new LibroResource(libroRepository, mockLibroSearchRepository);
+        final LibroResource libroResource = new LibroResource(recomendacionRepository, libroRepository, mockLibroSearchRepository);
         this.restLibroMockMvc = MockMvcBuilders.standaloneSetup(libroResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

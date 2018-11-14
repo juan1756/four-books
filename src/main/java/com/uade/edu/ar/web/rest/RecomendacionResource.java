@@ -80,7 +80,7 @@ public class RecomendacionResource {
         Recomendacion result = recomendacionRepository.save(recomendacion);
         recomendacionSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/recomendacions/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createRecomendacionCreationAlert(result.getId().toString()))
             .body(result);
     }
 
@@ -146,7 +146,7 @@ public class RecomendacionResource {
         
         recomendacionRepository.deleteById(id);
         recomendacionSearchRepository.deleteById(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+        return ResponseEntity.ok().build();
     }
 
     /**

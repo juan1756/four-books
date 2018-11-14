@@ -119,6 +119,24 @@ public class LibroResource {
         
         return libros;
     }
+    
+    @GetMapping("/libros/recomendados")
+    @Timed
+    public List<Libro> getLibrosRecomendados() {
+        log.debug("REST request to getLibrosRecomendados");
+        
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        List<Recomendacion> recomendaciones = recomendacionRepository.findAll();
+        List<Libro> libros = libroRepository.findAll();
+        libros.sort((l1, l2) -> getCantRecomendaciones(recomendaciones, l2) - getCantRecomendaciones(recomendaciones, l1) );
+        
+        return libros.subList(0, (libros.size() >= 5) ? 5 : libros.size());
+    }
+    
+    private int getCantRecomendaciones(List<Recomendacion> recomendaciones, Libro l) {
+    	return (int) recomendaciones.stream().filter(libro -> libro.getIsbn().equals(l.getIsbn())).count();    	
+    }
 
     /**
      * GET  /libros/:id : get the "id" libro.
