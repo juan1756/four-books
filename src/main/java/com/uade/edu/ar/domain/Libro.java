@@ -36,8 +36,22 @@ public class Libro implements Serializable {
     private Boolean activo;
     
     private String recomendado;
+    
+    private int recomendados;
+    
+    public void addRecomendado() {
+    	this.recomendados++;
+    }
+    
+    public int getRecomendados() {
+		return recomendados;
+	}
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+	public void setRecomendados(int recomendados) {
+		this.recomendados = recomendados;
+	}
+
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
     }

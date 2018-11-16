@@ -7,10 +7,29 @@
         <p class="lead">Find the book for you</p>
 
         <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span id="home-logged-message" *ngIf="account"
-                   > You are logged in as user "{{account.login}}". </span>
-            </div>
+            <div class="" *ngSwitchCase="true">
+            <!-- 
+            [routerLink]="['/libro', libro.id, 'view' ]"
+             -->
+            	<ul class="list-group">
+				  <li class="list-group-item list-group-item-action flex-column align-items-start">
+				    <div class="d-flex w-100 justify-content-between">
+				      <h5 class="mb-1">Libro uno</h5>
+				      <small><a [routerLink]="['/libro', libro.id, 'view' ]" class="text-primary">Show Book</a></small>
+				    </div>
+				    <p class="mb-1">El Se&ntilde;or de los anillos regresa</p>
+				    <small>Frodo...</small>
+				  </li>
+				  <li class="list-group-item list-group-item-action flex-column align-items-start">
+				    <div class="d-flex w-100 justify-content-between">
+				      <h5 class="mb-1">Libro 2</h5>
+				      <small><a [routerLink]="['/libro', libro.id, 'view' ]" class="text-primary">Show Book</a></small>
+				    </div>
+				    <p class="mb-1">DB2 essentials ftw</p>
+				    <small class="text-muted">(:V)</small>
+				  </li>
+		  		</ul>
+           </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
                 <span>New in Four Books?</span>&nbsp;

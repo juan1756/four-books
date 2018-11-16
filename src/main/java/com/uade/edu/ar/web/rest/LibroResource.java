@@ -113,8 +113,14 @@ public class LibroResource {
         		return libro.getIsbn().equals(r.getIsbn());
         	}).findFirst().map(f -> {
         		f.setRecomendado(r.getId());
+        		f.addRecomendado();
         		return f;
         	});
+        });
+        
+        
+        libros.forEach(l -> {
+        	l.setRecomendados(recomendacionRepository.countByIsbn(l.getIsbn()));
         });
         
         return libros;

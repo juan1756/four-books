@@ -17,4 +17,6 @@ import org.springframework.stereotype.Repository;
 public interface RecomendacionRepository extends MongoRepository<Recomendacion, String> {
 
 	List<Recomendacion> findAllByUser(String user);
+	
+	int countByIsbn(String isbn);
 }
