@@ -141,7 +141,9 @@ public class LibroResource {
     }
     
     private int getCantRecomendaciones(List<Recomendacion> recomendaciones, Libro l) {
-    	return (int) recomendaciones.stream().filter(libro -> libro.getIsbn().equals(l.getIsbn())).count();    	
+    	int count = (int) recomendaciones.stream().filter(libro -> libro.getIsbn().equals(l.getIsbn())).count();
+    	l.setRecomendados(count);
+    	return count;
     }
 
     /**

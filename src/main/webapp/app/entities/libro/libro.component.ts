@@ -109,4 +109,8 @@ export class LibroComponent implements OnInit, OnDestroy {
     onRecommendError(res: HttpErrorResponse) {
         console.log(res);
     }
+
+    isAuthenticated() {
+        return this.principal.isAuthenticated();
+    }
 }

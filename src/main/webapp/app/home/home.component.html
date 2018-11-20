@@ -4,29 +4,22 @@
 	</div>
     <div class="col-md-9">
         <h1 class="display-4">Four Books!</h1>
-        <p class="lead">Find the book for you</p>
+        <p class="lead">Most recommended</p>
 
         <div [ngSwitch]="isAuthenticated()">
             <div class="" *ngSwitchCase="true">
             <!-- 
             [routerLink]="['/libro', libro.id, 'view' ]"
              -->
-            	<ul class="list-group">
+            	<ul class="list-group" *ngFor="let libro of libros ;trackBy: trackId">
 				  <li class="list-group-item list-group-item-action flex-column align-items-start">
 				    <div class="d-flex w-100 justify-content-between">
-				      <h5 class="mb-1">Libro uno</h5>
+				      <h5 class="mb-1">{{libro.titulo}}</h5>
 				      <small><a [routerLink]="['/libro', libro.id, 'view' ]" class="text-primary">Show Book</a></small>
 				    </div>
-				    <p class="mb-1">El Se&ntilde;or de los anillos regresa</p>
-				    <small>Frodo...</small>
-				  </li>
-				  <li class="list-group-item list-group-item-action flex-column align-items-start">
-				    <div class="d-flex w-100 justify-content-between">
-				      <h5 class="mb-1">Libro 2</h5>
-				      <small><a [routerLink]="['/libro', libro.id, 'view' ]" class="text-primary">Show Book</a></small>
-				    </div>
-				    <p class="mb-1">DB2 essentials ftw</p>
-				    <small class="text-muted">(:V)</small>
+				    <p class="mb-1">Editorial: {{libro.editorial}}</p>
+				    <small>ISBN: {{libro.isbn}}</small>
+				    <small>Recomendados: {{libro.recomendados}}</small>
 				  </li>
 		  		</ul>
            </div>

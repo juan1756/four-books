@@ -41,6 +41,10 @@ export class LibroService {
         return this.http.get<ILibro[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    getRecomendados(): Observable<EntityArrayResponseType> {
+        return this.http.get<ILibro[]>(this.resourceUrl + '/recomendados', { params: {}, observe: 'response' });
+    }
+
     delete(id: string): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

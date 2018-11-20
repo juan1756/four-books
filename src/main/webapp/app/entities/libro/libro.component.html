@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span>Libros</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-libro" [routerLink]="['/libro/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-libro" [routerLink]="['/libro/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down" >
             Create new Libro
@@ -29,23 +29,19 @@
         <table class="table table-striped">
             <thead>
             <tr>
-            <th><span>ID</span></th>
             <th><span>Isbn</span></th>
             <th><span>Titulo</span></th>
             <th><span>Editorial</span></th>
             <th><span>Edicion</span></th>
-            <th><span>Activo</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let libro of libros ;trackBy: trackId">
-                <td><a [routerLink]="['/libro', libro.id, 'view' ]">{{libro.id}}</a></td>
-                <td>{{libro.isbn}}</td>
+                <td><a [routerLink]="['/libro', libro.id, 'view' ]">{{libro.isbn}}</a></td>
                 <td>{{libro.titulo}}</td>
                 <td>{{libro.editorial}}</td>
                 <td>{{libro.edicion}}</td>
-                <td>{{libro.activo}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                     	<button type="submit" *ngIf="!libro.recomendado"
