@@ -137,7 +137,7 @@ public class LibroResource {
         List<Libro> libros = libroRepository.findAll();
         libros.sort((l1, l2) -> getCantRecomendaciones(recomendaciones, l2) - getCantRecomendaciones(recomendaciones, l1) );
         
-        return libros.subList(0, (libros.size() >= 5) ? 5 : libros.size());
+        return libros.subList(0, (libros.size() >= 4) ? 4 : libros.size());
     }
     
     private int getCantRecomendaciones(List<Recomendacion> recomendaciones, Libro l) {
