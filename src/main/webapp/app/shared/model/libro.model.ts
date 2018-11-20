@@ -5,6 +5,7 @@ export interface ILibro {
     editorial?: string;
     edicion?: string;
     activo?: boolean;
+    autor?: string;
 }
 
 export class Libro implements ILibro {
@@ -14,7 +15,8 @@ export class Libro implements ILibro {
         public titulo?: string,
         public editorial?: string,
         public edicion?: string,
-        public activo?: boolean
+        public activo?: boolean,
+        public autor?: string
     ) {
         this.activo = this.activo || false;
     }

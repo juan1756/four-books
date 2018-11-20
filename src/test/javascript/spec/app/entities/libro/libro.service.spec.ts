@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(LibroService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Libro('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false);
+            elemDefault = new Libro('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false, 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -59,7 +59,8 @@ describe('Service Tests', () => {
                         titulo: 'BBBBBB',
                         editorial: 'BBBBBB',
                         edicion: 'BBBBBB',
-                        activo: true
+                        activo: true,
+                        autor: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -80,7 +81,8 @@ describe('Service Tests', () => {
                         titulo: 'BBBBBB',
                         editorial: 'BBBBBB',
                         edicion: 'BBBBBB',
-                        activo: true
+                        activo: true,
+                        autor: 'BBBBBB'
                     },
                     elemDefault
                 );

@@ -1,5 +1,7 @@
 {
-    "name": "Libro",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
     "fields": [
         {
             "fieldName": "isbn",
@@ -20,16 +22,17 @@
         {
             "fieldName": "activo",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "autor",
+            "fieldType": "String"
         }
     ],
-    "relationships": [],
     "changelogDate": "20181016231523",
-    "entityTableName": "libro",
     "dto": "no",
-    "pagination": "no",
+    "searchEngine": "elasticsearch",
     "service": "no",
+    "entityTableName": "libro",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "no"
 }

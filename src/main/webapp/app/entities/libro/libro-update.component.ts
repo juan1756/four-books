@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { ILibro } from 'app/shared/model/libro.model';
+import { IAutor } from 'app/shared/model/autor.model';
 import { LibroService } from './libro.service';
+import { AutorService } from '../autor/autor.service';
 
 @Component({
     selector: 'jhi-libro-update',
@@ -13,14 +17,32 @@ import { LibroService } from './libro.service';
 export class LibroUpdateComponent implements OnInit {
     libro: ILibro;
     isSaving: boolean;
+    public model: any;
+    autores: IAutor[];
 
-    constructor(private libroService: LibroService, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private libroService: LibroService,
+        private activatedRoute: ActivatedRoute,
+        private autorService: AutorService,
+        private jhiAlertService: JhiAlertService
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ libro }) => {
             this.libro = libro;
         });
+
+        this.autorService.query().subscribe(
+            (res: HttpResponse<IAutor[]>) => {
+                this.autores = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 
     previousState() {
@@ -48,4 +70,19 @@ export class LibroUpdateComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+
+    search = (text$: Observable<string>) =>
+        text$.pipe(
+            debounceTime(200),
+            distinctUntilChanged(),
+            map(
+                term =>
+                    term.length < 2
+                        ? []
+                        : this.autores
+                              .map(a => a.nombre)
+                              .filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)
+                              .slice(0, 10)
+            )
+        );
 }

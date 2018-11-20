@@ -53,7 +53,7 @@ export class AutorService {
     search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
-            .get<IAutor[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .get<IAutor[]>(this.resourceSearchUrl + '?query=' + req.get, { observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 

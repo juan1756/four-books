@@ -34,22 +34,35 @@ public class Libro implements Serializable {
 
     @Field("activo")
     private Boolean activo;
+
+    @Field("autor")
+    private String autor;
     
     private String recomendado;
-    
+
     private int recomendados;
-    
+
     public void addRecomendado() {
-    	this.recomendados++;
+       this.recomendados++;
     }
     
-    public int getRecomendados() {
+    public String getRecomendado() {
+		return recomendado;
+	}
+
+	public void setRecomendado(String recomendado) {
+		this.recomendado = recomendado;
+	}
+
+	public int getRecomendados() {
 		return recomendados;
 	}
 
 	public void setRecomendados(int recomendados) {
 		this.recomendados = recomendados;
 	}
+
+
 
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -124,19 +137,22 @@ public class Libro implements Serializable {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
-    
-    
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public Libro autor(String autor) {
+        this.autor = autor;
+        return this;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    public String getRecomendado() {
-		return recomendado;
-	}
-
-	public void setRecomendado(String recomendado) {
-		this.recomendado = recomendado;
-	}
-
-	@Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -165,6 +181,7 @@ public class Libro implements Serializable {
             ", editorial='" + getEditorial() + "'" +
             ", edicion='" + getEdicion() + "'" +
             ", activo='" + isActivo() + "'" +
+            ", autor='" + getAutor() + "'" +
             "}";
     }
 }

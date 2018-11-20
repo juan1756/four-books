@@ -4,7 +4,6 @@ import com.uade.edu.ar.FourbooksApp;
 
 import com.uade.edu.ar.domain.Libro;
 import com.uade.edu.ar.repository.LibroRepository;
-import com.uade.edu.ar.repository.RecomendacionRepository;
 import com.uade.edu.ar.repository.search.LibroSearchRepository;
 import com.uade.edu.ar.web.rest.errors.ExceptionTranslator;
 
@@ -57,11 +56,11 @@ public class LibroResourceIntTest {
     private static final Boolean DEFAULT_ACTIVO = false;
     private static final Boolean UPDATED_ACTIVO = true;
 
+    private static final String DEFAULT_AUTOR = "AAAAAAAAAA";
+    private static final String UPDATED_AUTOR = "BBBBBBBBBB";
+
     @Autowired
     private LibroRepository libroRepository;
-    
-    @Autowired
-    private RecomendacionRepository recomendacionRepository;
 
     /**
      * This repository is mocked in the com.uade.edu.ar.repository.search test package.
@@ -87,7 +86,7 @@ public class LibroResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final LibroResource libroResource = new LibroResource(recomendacionRepository, libroRepository, mockLibroSearchRepository);
+        final LibroResource libroResource = new LibroResource(libroRepository, mockLibroSearchRepository);
         this.restLibroMockMvc = MockMvcBuilders.standaloneSetup(libroResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -107,7 +106,8 @@ public class LibroResourceIntTest {
             .titulo(DEFAULT_TITULO)
             .editorial(DEFAULT_EDITORIAL)
             .edicion(DEFAULT_EDICION)
-            .activo(DEFAULT_ACTIVO);
+            .activo(DEFAULT_ACTIVO)
+            .autor(DEFAULT_AUTOR);
         return libro;
     }
 
@@ -136,6 +136,7 @@ public class LibroResourceIntTest {
         assertThat(testLibro.getEditorial()).isEqualTo(DEFAULT_EDITORIAL);
         assertThat(testLibro.getEdicion()).isEqualTo(DEFAULT_EDICION);
         assertThat(testLibro.isActivo()).isEqualTo(DEFAULT_ACTIVO);
+        assertThat(testLibro.getAutor()).isEqualTo(DEFAULT_AUTOR);
 
         // Validate the Libro in Elasticsearch
         verify(mockLibroSearchRepository, times(1)).save(testLibro);
@@ -176,7 +177,8 @@ public class LibroResourceIntTest {
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO.toString())))
             .andExpect(jsonPath("$.[*].editorial").value(hasItem(DEFAULT_EDITORIAL.toString())))
             .andExpect(jsonPath("$.[*].edicion").value(hasItem(DEFAULT_EDICION.toString())))
-            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())));
+            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())))
+            .andExpect(jsonPath("$.[*].autor").value(hasItem(DEFAULT_AUTOR.toString())));
     }
     
     @Test
@@ -193,7 +195,8 @@ public class LibroResourceIntTest {
             .andExpect(jsonPath("$.titulo").value(DEFAULT_TITULO.toString()))
             .andExpect(jsonPath("$.editorial").value(DEFAULT_EDITORIAL.toString()))
             .andExpect(jsonPath("$.edicion").value(DEFAULT_EDICION.toString()))
-            .andExpect(jsonPath("$.activo").value(DEFAULT_ACTIVO.booleanValue()));
+            .andExpect(jsonPath("$.activo").value(DEFAULT_ACTIVO.booleanValue()))
+            .andExpect(jsonPath("$.autor").value(DEFAULT_AUTOR.toString()));
     }
 
     @Test
@@ -217,7 +220,8 @@ public class LibroResourceIntTest {
             .titulo(UPDATED_TITULO)
             .editorial(UPDATED_EDITORIAL)
             .edicion(UPDATED_EDICION)
-            .activo(UPDATED_ACTIVO);
+            .activo(UPDATED_ACTIVO)
+            .autor(UPDATED_AUTOR);
 
         restLibroMockMvc.perform(put("/api/libros")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,6 +237,7 @@ public class LibroResourceIntTest {
         assertThat(testLibro.getEditorial()).isEqualTo(UPDATED_EDITORIAL);
         assertThat(testLibro.getEdicion()).isEqualTo(UPDATED_EDICION);
         assertThat(testLibro.isActivo()).isEqualTo(UPDATED_ACTIVO);
+        assertThat(testLibro.getAutor()).isEqualTo(UPDATED_AUTOR);
 
         // Validate the Libro in Elasticsearch
         verify(mockLibroSearchRepository, times(1)).save(testLibro);
@@ -293,7 +298,8 @@ public class LibroResourceIntTest {
             .andExpect(jsonPath("$.[*].titulo").value(hasItem(DEFAULT_TITULO.toString())))
             .andExpect(jsonPath("$.[*].editorial").value(hasItem(DEFAULT_EDITORIAL.toString())))
             .andExpect(jsonPath("$.[*].edicion").value(hasItem(DEFAULT_EDICION.toString())))
-            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())));
+            .andExpect(jsonPath("$.[*].activo").value(hasItem(DEFAULT_ACTIVO.booleanValue())))
+            .andExpect(jsonPath("$.[*].autor").value(hasItem(DEFAULT_AUTOR.toString())));
     }
 
     @Test
